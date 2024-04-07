@@ -4,7 +4,7 @@
 Before you begin, ensure you have the following installed:
 
     Python 3.x
-    Docker
+    Docker (recommended)
 
 ## Build and Run
 
