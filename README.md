@@ -31,7 +31,9 @@ Before you begin, ensure you have the following installed:
         
             docker-compose up --build flask_app
 
-6. to validate that the application is running call <running-url>/test
+6. to validate that the application is running call:
+          
+            <running-url>/test
 
 ## API Endpoints
 
