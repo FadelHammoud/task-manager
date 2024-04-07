@@ -31,6 +31,8 @@ Before you begin, ensure you have the following installed:
         
             docker-compose up --build flask_app
 
+6. to validate that the application is running call <running-url>/test
+
 ## API Endpoints
 
 there is an postman collection for the APIs named as 'ztask-manager-app.postman_collection.json', within it there is also random test (under tests in postman).
