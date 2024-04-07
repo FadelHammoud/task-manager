@@ -1,0 +1,324 @@
+{
+	"info": {
+		"_postman_id": "1047a5ab-a2e3-4855-b8cc-bce67364266c",
+		"name": "task-manager-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7146855"
+	},
+	"item": [
+		{
+			"name": "add",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"function getRandomDueDate() {\r",
+							"    const currentDate = new Date();\r",
+							"    const oneWeekAhead = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000); // Add 7 days to the current date\r",
+							"    return new Date(currentDate.getTime() + Math.random() * (oneWeekAhead.getTime() - currentDate.getTime()));\r",
+							"}\r",
+							"\r",
+							"const randomDueDate = getRandomDueDate();\r",
+							"const formattedDueDate = randomDueDate.toISOString().split('T')[0];\r",
+							"\r",
+							"pm.environment.set('randomDueDate', formattedDueDate);\r",
+							"\r",
+							"const categories = ['Personal', 'Work', 'Shopping', 'Other'];\r",
+							"const priorities = ['Low', 'Medium', 'High'];\r",
+							"\r",
+							"const randomCategoryIndex = Math.floor(Math.random() * categories.length);\r",
+							"const randomPriorityIndex = Math.floor(Math.random() * priorities.length);\r",
+							"\r",
+							"pm.environment.set('randomCategory', categories[randomCategoryIndex]);\r",
+							"pm.environment.set('randomPriority', priorities[randomPriorityIndex]);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"title{{$randomInt}}\",\r\n    \"description\" : \"description{{$randomInt}}\",\r\n    \"category\": \"{{randomCategory}}\",\r\n    \"priority\": \"{{randomPriority}}\",\r\n    \"due_date\": \"{{randomDueDate}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"function getRandomDueDate() {\r",
+							"    const currentDate = new Date();\r",
+							"    const oneWeekAhead = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000); // Add 7 days to the current date\r",
+							"    return new Date(currentDate.getTime() + Math.random() * (oneWeekAhead.getTime() - currentDate.getTime()));\r",
+							"}\r",
+							"\r",
+							"const randomDueDate = getRandomDueDate();\r",
+							"const formattedDueDate = randomDueDate.toISOString().split('T')[0];\r",
+							"\r",
+							"pm.environment.set('randomDueDate', formattedDueDate);\r",
+							"\r",
+							"const categories = ['Personal', 'Work', 'Shopping', 'Other'];\r",
+							"const priorities = ['Low', 'Medium', 'High'];\r",
+							"\r",
+							"const randomCategoryIndex = Math.floor(Math.random() * categories.length);\r",
+							"const randomPriorityIndex = Math.floor(Math.random() * priorities.length);\r",
+							"\r",
+							"pm.environment.set('randomCategory', categories[randomCategoryIndex]);\r",
+							"pm.environment.set('randomPriority', priorities[randomPriorityIndex]);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\" : \"title{{$randomInt}}\",\r\n    \"description\" : \"description{{$randomInt}}\",\r\n    \"category\": \"{{randomCategory}}\",\r\n    \"priority\": \"{{randomPriority}}\",\r\n    \"due_date\": \"{{randomDueDate}}\",\r\n    \"completed\": {{$randomBoolean}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/tasks/2",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"tasks",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:4000/tasks/3",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"tasks",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:4000/tasks?order=id,desc",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "id,desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/tasks/1",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"tasks",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getByCategory",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const categories = ['Personal', 'Work', 'Shopping', 'Other'];\r",
+							"const randomCategoryIndex = Math.floor(Math.random() * categories.length);\r",
+							"\r",
+							"pm.environment.set('randomCategory', categories[randomCategoryIndex]);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:4000/tasks/category/{{randomCategory}}",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"tasks",
+						"category",
+						"{{randomCategory}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getByPriority",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const priorities = ['Low', 'Medium', 'High'];\r",
+							"const randomPriorityIndex = Math.floor(Math.random() * priorities.length);\r",
+							"\r",
+							"pm.environment.set('randomPriority', priorities[randomPriorityIndex]);\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:4000/tasks/priority/{{randomPriority}}",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"tasks",
+						"priority",
+						"{{randomPriority}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getByDueDate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"function getRandomDueDate() {\r",
+							"    const currentDate = new Date();\r",
+							"    const oneWeekAhead = new Date(currentDate.getTime() + 7 * 24 * 60 * 60 * 1000); // Add 7 days to the current date\r",
+							"    return new Date(currentDate.getTime() + Math.random() * (oneWeekAhead.getTime() - currentDate.getTime()));\r",
+							"}\r",
+							"\r",
+							"const randomDueDate = getRandomDueDate();\r",
+							"const formattedDueDate = randomDueDate.toISOString().split('T')[0];\r",
+							"\r",
+							"pm.environment.set('randomDueDate', formattedDueDate);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:4000/tasks/due/{{randomDueDate}}?order=priority,desc",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"tasks",
+						"due",
+						"{{randomDueDate}}"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "priority,desc"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "caseNum",
+			"value": ""
+		}
+	]
+}
